@@ -1,5 +1,5 @@
 import Square from './components/Square.jsx'
-import { useBoard } from './hooks/useBoard.jsx'
+import { useBoard } from './hooks/use-board.js'
 function App() {
   const {
     updateBoard,
