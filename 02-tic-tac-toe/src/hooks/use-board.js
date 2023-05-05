@@ -5,21 +5,21 @@ const Config = {
   SESSION_DATA_KEYS: {
     board: 'board',
     gameStatus: 'game_status',
-    turn: 'turn',
+    turn: 'turn'
   },
   TURNS: {
     x: '❌',
-    o: '⚪',
+    o: '⚪'
   },
   GAME_STATUS: {
     playing: 'playing',
     tie: 'tie',
-    end: 'end',
+    end: 'end'
   },
   POSIBLE_WINNERS: {
     x: '❌',
     o: '⚪',
-    n: '🟦',
+    n: '🟦'
   },
   WINNER_COMBOS: [
     [0, 1, 2],
@@ -29,39 +29,27 @@ const Config = {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6],
-  ],
+    [2, 4, 6]
+  ]
 }
 
 export const useBoard = () => {
-  const {
-    SESSION_DATA_KEYS,
-    TURNS,
-    GAME_STATUS,
-    POSIBLE_WINNERS,
-    WINNER_COMBOS,
-  } = Config
+  const { SESSION_DATA_KEYS, TURNS, GAME_STATUS, POSIBLE_WINNERS, WINNER_COMBOS } = Config
 
   const checkBoardFull = (board) => !!board.every((elem) => elem !== null)
 
   const isGameEnd = (board, gameStatus) =>
-    checkBoardFull(board) ||
-    gameStatus === GAME_STATUS.tie ||
-    gameStatus === GAME_STATUS.end
+    checkBoardFull(board) || gameStatus === GAME_STATUS.tie || gameStatus === GAME_STATUS.end
 
   const [board, setBoard] = useState(() => {
-    const lastSessionBoard = window.localStorage.getItem(
-      SESSION_DATA_KEYS.board
-    )
+    const lastSessionBoard = window.localStorage.getItem(SESSION_DATA_KEYS.board)
 
     if (!lastSessionBoard) {
       return Array(9).fill(null)
     }
 
     const initBoard = JSON.parse(lastSessionBoard)
-    const gameStatusLastSession = window.localStorage.getItem(
-      SESSION_DATA_KEYS.gameStatus
-    )
+    const gameStatusLastSession = window.localStorage.getItem(SESSION_DATA_KEYS.gameStatus)
 
     if (isGameEnd(initBoard, gameStatusLastSession)) {
       return Array(9).fill(null)
@@ -88,9 +76,7 @@ export const useBoard = () => {
   const updateBoard = (index) => {
     if (isSquareFilled(board, index) || hasGameFinished(gameStatus)) return
 
-    const newBoard = board.map((elem, i) =>
-      !elem && index === i ? turn : elem
-    )
+    const newBoard = board.map((elem, i) => (!elem && index === i ? turn : elem))
     setBoard(newBoard)
 
     if (!checkWinner(newBoard, turn) && checkBoardFull(newBoard)) {
@@ -102,8 +88,7 @@ export const useBoard = () => {
     }
 
     if (checkWinner(newBoard, turn)) {
-      const winner =
-        turn === POSIBLE_WINNERS.x ? POSIBLE_WINNERS.x : POSIBLE_WINNERS.o
+      const winner = turn === POSIBLE_WINNERS.x ? POSIBLE_WINNERS.x : POSIBLE_WINNERS.o
 
       setGameStatus(GAME_STATUS.end)
       setWinner(winner)
@@ -124,10 +109,7 @@ export const useBoard = () => {
   const saveStateToLocalStorage = (newTurn, newBoard) => {
     window.localStorage.setItem(SESSION_DATA_KEYS.turn, newTurn)
 
-    window.localStorage.setItem(
-      SESSION_DATA_KEYS.board,
-      JSON.stringify(newBoard)
-    )
+    window.localStorage.setItem(SESSION_DATA_KEYS.board, JSON.stringify(newBoard))
   }
 
   const checkWinner = (board, turn) => {
@@ -163,6 +145,6 @@ export const useBoard = () => {
     board,
     winner,
     playerX,
-    playerO,
+    playerO
   }
 }

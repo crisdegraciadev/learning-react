@@ -1,4 +1,5 @@
 import Square from './components/Square.jsx'
+import React from 'react'
 import { useBoard } from './hooks/use-board.js'
 function App() {
   const {
@@ -12,7 +13,7 @@ function App() {
     board,
     playerX,
     playerO,
-    winner,
+    winner
   } = useBoard()
 
   return (
@@ -33,9 +34,7 @@ function App() {
       <section className="game-info">
         {isGameStatusEnd() && <span>¡Ganador {winner}!</span>}
         {isGameStatusTie() && <span>¡Empate!</span>}
-        {isGameStatusPlaying() && (
-          <button onClick={resetGame}>Reiniciar</button>
-        )}
+        {isGameStatusPlaying() && <button onClick={resetGame}>Reiniciar</button>}
       </section>
     </main>
   )
