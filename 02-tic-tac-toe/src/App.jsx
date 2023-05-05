@@ -1,6 +1,6 @@
-import Square from './components/Square.jsx'
-import React from 'react'
-import { useBoard } from './hooks/use-board.js'
+import Square from './components/Square.jsx';
+import React from 'react';
+import { useBoard } from './hooks/use-board.js';
 function App() {
   const {
     updateBoard,
@@ -14,7 +14,7 @@ function App() {
     playerX,
     playerO,
     winner
-  } = useBoard()
+  } = useBoard();
 
   return (
     <main className="board">
@@ -37,7 +37,7 @@ function App() {
         {isGameStatusPlaying() && <button onClick={resetGame}>Reiniciar</button>}
       </section>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
