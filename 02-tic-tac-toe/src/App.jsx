@@ -1,9 +1,19 @@
 import Square from './components/Square.jsx'
-import { TURNS, GAME_STATUS } from './constants.js'
-import { useBoard } from './hooks/useBoard.js'
-
+import { useBoard } from './hooks/useBoard.jsx'
 function App() {
-  const { updateBoard, resetGame, board, turn, gameStatus, winner } = useBoard()
+  const {
+    updateBoard,
+    resetGame,
+    isTurnOfX,
+    isTurnOfO,
+    isGameStatusPlaying,
+    isGameStatusEnd,
+    isGameStatusTie,
+    board,
+    playerX,
+    playerO,
+    winner,
+  } = useBoard()
 
   return (
     <main className="board">
@@ -16,14 +26,14 @@ function App() {
         ))}
       </section>
       <section className="turn">
-        <Square isSelected={turn === TURNS.x}>{TURNS.x}</Square>
-        <Square isSelected={turn === TURNS.o}>{TURNS.o}</Square>
+        <Square isSelected={isTurnOfX()}>{playerX}</Square>
+        <Square isSelected={isTurnOfO()}>{playerO}</Square>
       </section>
 
       <section className="game-info">
-        {gameStatus === GAME_STATUS.end && <span>¡Ganador {winner}!</span>}
-        {gameStatus === GAME_STATUS.tie && <span>¡Empate!</span>}
-        {gameStatus !== GAME_STATUS.playing && (
+        {isGameStatusEnd() && <span>¡Ganador {winner}!</span>}
+        {isGameStatusTie() && <span>¡Empate!</span>}
+        {isGameStatusPlaying() && (
           <button onClick={resetGame}>Reiniciar</button>
         )}
       </section>
